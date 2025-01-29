@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:fuctest/page/home_page.dart';
+import 'package:fuctest/themes/darkmode.dart';
+import 'package:fuctest/themes/lightmode.dart';
+import 'package:fuctest/themes/themesprovider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context)=>ThemesProvider(),
+      child: const MyApp(),
+    )
+  );
 }
 class MusicPlayerState with ChangeNotifier{
   AudioPlayer _audioPlayer = AudioPlayer();
@@ -30,7 +39,8 @@ class MyApp extends StatelessWidget {
       create: (context) => MusicPlayerState(),
       child: MaterialApp(
         title: "MusicPlayer App",
-        home: MyHomePage(),
+        home: HomePage(),
+        theme: Provider.of<ThemesProvider>(context).themeData,
       ),
     );
   }
